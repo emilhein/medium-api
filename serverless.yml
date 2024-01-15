@@ -1,0 +1,16 @@
+service: medium-api-proxy
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+
+functions:
+  api:
+    handler: index.handler
+    events:
+      - http:
+          path: /posts
+          method: get
+          cors: true # <-- CORS!
+
