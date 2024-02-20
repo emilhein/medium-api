@@ -93,7 +93,7 @@ const getAllPosts = async (username, nextToken = null) => {
   return getAllPosts(username, foundNexttoken)
 }
 let allPosts = []
-module.exports.handler = async (event) => {
+export const handler = async (event) => {
 
   let returnposts = []
   if (allPosts.length > 0) {

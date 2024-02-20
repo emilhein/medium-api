@@ -3,14 +3,33 @@ frameworkVersion: '3'
 
 provider:
   name: aws
-  runtime: nodejs18.x
+  runtime: nodejs20.x
+
+	
+plugins:
+  - serverless-plugin-lambda-insights
 
 functions:
-  api:
+  # the node runtime function
+
+  medium_node:
     handler: index.handler
+    lambdaInsights: true
     events:
       - http:
-          path: /posts
+          path: /posts_node
           method: get
-          cors: true # <-- CORS!
+          cors: true
 
+  # the llrt runtime function
+  medium_llrt:
+    handler: llrtHandler.handler
+    lambdaInsights: true
+    runtime: provided.al2023
+    layers:
+      - arn:aws:lambda:us-east-1:408808605138:layer:llrt:1
+    events:
+      - http:
+          path: /post_llrt
+          method: get
+          cors: true
